@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Мой магазин</title>
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-route.min.js"></script>
+    <script src="Scripts/i18n/angular-locale_ru-ru.js"></script>
+    <script src="MyApp/eShopApp.js"></script>
+    <script src="MyApp/eShopRoute.js"></script>
+    <script src="MyApp/Controllers/eShopController.js"></script>
+    <script src="MyApp/Controllers/eShopOrderController.js"></script>
+    <script src="MyApp/Controllers/eShopOrdersController.js"></script>
+    <script src="MyApp/Controllers/eShopProductsController.js"></script>
+</head>
+<body>
+    <div ng-app="eShopApp">
+        <h1>Магазин Ивана Князева</h1>
+        <nav>
+            <a href="#!main">Главная</a>
+            <a href="#!products">Каталог</a>
+            <a href="#!order">Корзина</a>
+            <a href="#!orders">Все заказы</a>
+        </nav>
+        <div ng-view></div>
+    </div>
+</body>
+</html>

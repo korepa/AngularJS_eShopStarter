@@ -1,0 +1,22 @@
+﻿<h2>Корзина</h2>
+<h3>Оформление заказа</h3>
+<table border="1">
+    <tr>
+        <th ng-repeat="title in orderItemsTitles">
+            {{title}}
+        </th>
+    </tr>
+    <tr ng-repeat="o in orderItems">
+        <td>{{o.id}}</td>
+        <td>{{o.name}}</td>
+        <td style="text-align: right">{{o.price | currency}}</td>
+        <td style="text-align: right">{{o.count}}</td>
+        <td style="text-align: right">{{o.price * o.count | currency}}</td>
+    </tr>
+    <tr>
+        <th colspan="4">Итого:</th>
+        <th style="text-align: right">{{summ() | currency}}</th>
+    </tr>
+</table>
+<br />
+<button ng-click="emptyTrash()" style="width:200px; text-align:left;" >Очистить корзину</button>
