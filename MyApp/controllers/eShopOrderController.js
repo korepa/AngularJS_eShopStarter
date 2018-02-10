@@ -1,46 +1,62 @@
 ﻿app.controller('eShopOrderController', function ($scope, $window) {
 
-    $scope.orderItemsTitles = ['Артикул', 'Товар', 'Цена', 'Количество', 'Общая цена', '+', '-'];
+    $scope.orderItemsTitles = ['Артикул', 'Товар', 'Цена', 'Количество', 'Общая цена', 'Добавить', 'Удалить'];
     $scope.orderItems = JSON.parse($window.localStorage.getItem('order'));
+    $scope.orderItemsSum = 0;
 
+    // сумма заказа
     $scope.summ = function () {
         var result = 0;
-        for (item of $scope.orderItems) {
-            result += item.price * item.count;
+        if ($scope.orderItems != null && $scope.orderItems.length > 0) {
+            for (item of $scope.orderItems) {
+                result += item.price * item.count;
+            }
         }
         return result;
     };
 
     $scope.emptyTrash = function () {
         $window.localStorage.removeItem('order');
-        $scope.orderItems = null;
+        $scope.orderItems = [];
+        $scope.orderItemsSum = $scope.summ();
     };
 
     // добавление товара в корзину
     $scope.updateTrash = function (updateFlag, itemIndex, itemName, itemPrice) {
         console.log("updateFlag : " + updateFlag);
         console.log("id : " + itemIndex);
-        return;
+        console.log(itemIndex + "-" + itemName + "-" + itemPrice);
+        //return;
 
         let orderItem = JSON.parse($window.localStorage.getItem('order'));
         let newItem = { id: itemIndex, name: itemName, price: itemPrice, count: 1 };
-        let existed = false;
+        let itemToRemove = null;
         // инициализация
         if (orderItem == null) {
             orderItem = [];
         }
+        // флаг модификации 
+        var flag = updateFlag == '+' ? 1 : -1;
         // обновим значение
         for (var item of orderItem) {
             if (item.id === itemIndex) {
-                item.count += 1;
-                existed = true;
+                item.count += flag;
+                if (item.count == 0) {
+                    itemToRemove = item;
+                }
                 break;
             }
         }
         // добавим значение
-        if (existed == false) {
-            orderItem.push(newItem);
+        if (itemToRemove != null) {
+            const index = orderItem.indexOf(itemToRemove);
+            orderItem.splice(index, 1);
         }
         $window.localStorage.setItem('order', JSON.stringify(orderItem));
+        $scope.orderItems = orderItem;
+        $scope.orderItemsSum = $scope.summ();
     }
+
+    // сумма заказа
+    $scope.orderItemsSum = $scope.summ();
 });
