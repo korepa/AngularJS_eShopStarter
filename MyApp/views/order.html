@@ -12,6 +12,12 @@
         <td style="text-align: right">{{o.price | currency}}</td>
         <td style="text-align: right">{{o.count}}</td>
         <td style="text-align: right">{{o.price * o.count | currency}}</td>
+        <td>
+            <button ng-click="updateTrash('+', p.Id, p.title, p.price)">+</button>
+        </td>
+        <td>
+            <button ng-click="updateTrash('-', p.Id, p.title, p.price)">-</button>
+        </td>
     </tr>
     <tr>
         <th colspan="4">Итого:</th>
