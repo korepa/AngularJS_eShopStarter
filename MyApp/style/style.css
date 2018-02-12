@@ -1,0 +1,9 @@
+﻿.label-error {
+    color: crimson;
+    background-color: burlywood;
+}
+
+.label-success {
+    color: forestgreen;
+    background-color: lavender;
+}

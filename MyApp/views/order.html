@@ -1,5 +1,8 @@
-﻿<h2>Корзина</h2>
-<h3>Оформление заказа</h3>
+﻿<h2>Оформление заказа</h2>
+<h3>
+    Корзина 
+    <button ng-click="emptyTrash()">Очистить корзину</button>
+</h3>
 <table border="1">
     <tr>
         <th ng-repeat="title in orderItemsTitles">
@@ -32,4 +35,8 @@
     </tr>
 </table>
 <br />
-<button ng-click="emptyTrash()">Очистить корзину</button>
+<button ng-click="makeOrder()">Оформить заказ</button>
+<div>
+    <br />
+    <label ng-class="{'label-error': errorStatus, 'label-success': !errorStatus}" ng-bind="orderStatus"></label>
+</div>

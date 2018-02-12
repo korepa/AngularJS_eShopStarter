@@ -15,18 +15,20 @@
         return result;
     };
 
+    // очистка корзины
     $scope.emptyTrash = function () {
+
         $window.localStorage.removeItem('order');
+
         $scope.orderItems = [];
         $scope.orderItemsSum = $scope.summ();
+
+        $scope.orderStatus = 'Корзина очищена!';
+        $scope.errorStatus = false;
     };
 
     // добавление товара в корзину
     $scope.updateTrash = function (updateFlag, itemIndex, itemName, itemPrice) {
-        console.log("updateFlag : " + updateFlag);
-        console.log("id : " + itemIndex);
-        console.log(itemIndex + "-" + itemName + "-" + itemPrice);
-        //return;
 
         let orderItem = JSON.parse($window.localStorage.getItem('order'));
         let newItem = { id: itemIndex, name: itemName, price: itemPrice, count: 1 };
