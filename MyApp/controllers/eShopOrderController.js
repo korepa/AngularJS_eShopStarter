@@ -25,6 +25,10 @@
 
         $scope.orderStatus = 'Корзина очищена!';
         $scope.errorStatus = false;
+        setTimeout(function () {
+            $scope.errorStatus = true;
+            $scope.orderStatus = '';
+        }, 1000);
     };
 
     // добавление товара в корзину
