@@ -1,8 +1,7 @@
-﻿<h2>Оформление заказа</h2>
-<h3>
-    Корзина 
-    <button ng-click="emptyTrash()">Очистить корзину</button>
-</h3>
+﻿<h2>
+    Корзина
+    <button style="vertical-align:bottom;" ng-click="emptyTrash()">Очистить корзину</button>
+</h2>
 <table border="1">
     <tr>
         <th ng-repeat="title in orderItemsTitles">
@@ -16,15 +15,15 @@
         <td style="text-align: right">{{o.count}}</td>
         <td style="text-align: right">{{o.price * o.count | currency}}</td>
         <td>
-            <button ng-click="updateTrash('+', o.id, o.title, o.price)" 
+            <button ng-click="updateTrash('+', o.id, o.title, o.price)"
                     style="margin:0 auto; display:block;padding: 0px 10px;">
-            +
+                +
             </button>
         </td>
         <td>
-            <button ng-click="updateTrash('-', o.id, o.title, o.price)" 
+            <button ng-click="updateTrash('-', o.id, o.title, o.price)"
                     style="margin:0 auto; display:block;padding: 0px 10px;">
-            -
+                -
             </button>
         </td>
     </tr>
@@ -34,8 +33,18 @@
         <th colspan="2"></th>
     </tr>
 </table>
-<br />
-<button ng-click="makeOrder()">Оформить заказ</button>
+<form name="sendOrderForm" ng-submit="sendOrder()">
+    <h3>Оформление заказа</h3>
+    <p>
+        <label style="width:120px; display:inline-block;">Клиент: </label>
+        <input type="text" name="clientName" ng-model="clientName" required />
+    </p>
+    <p>
+        <label style="width:120px; display:inline-block;">Комментарий: </label>
+        <input type="text" name="comment" ng-model="comment" required />
+    </p>
+    <button type="submit">Оформить заказ</button>
+</form>
 <div>
     <br />
     <label ng-class="{'label-error': errorStatus, 'label-success': !errorStatus}" ng-bind="orderStatus"></label>

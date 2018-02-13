@@ -1,4 +1,4 @@
-﻿app.controller('eShopOrderController', function ($scope, $window) {
+﻿app.controller('eShopOrderController', function ($scope, $window, $timeout) {
 
     $scope.orderItemsTitles = ['Артикул', 'Товар', 'Цена', 'Количество', 'Общая цена', 'Добавить', 'Удалить'];
     $scope.orderItems = JSON.parse($window.localStorage.getItem('order'));
@@ -23,12 +23,17 @@
         $scope.orderItems = [];
         $scope.orderItemsSum = $scope.summ();
 
-        $scope.orderStatus = 'Корзина очищена!';
-        $scope.errorStatus = false;
-        setTimeout(function () {
-            $scope.errorStatus = true;
+        $scope.showMessage('Корзина очищена!', false);
+    };
+
+    // показать сообщение
+    $scope.showMessage = function (message, isError) {
+
+        $scope.orderStatus = message;
+        $scope.errorStatus = isError;
+        $timeout(function () {
             $scope.orderStatus = '';
-        }, 1000);
+        }, 3000);
     };
 
     // добавление товара в корзину
@@ -62,6 +67,25 @@
         $scope.orderItems = orderItem;
         $scope.orderItemsSum = $scope.summ();
     }
+
+    // отправка заказа
+    $scope.sendOrder = function () {
+
+        let orderItem = JSON.parse($window.localStorage.getItem('order'));
+        console.log('sendOrder: ' + orderItem);
+
+        $http({
+            method: 'POST',
+            url: 'api/Products'
+        }).then(
+            function success(response) {
+                console.log(response);
+            },
+            function error(response) {
+                console.log(response);
+            }
+        );
+    };
 
     // сумма заказа
     $scope.orderItemsSum = $scope.summ();
